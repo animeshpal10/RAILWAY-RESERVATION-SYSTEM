@@ -1,0 +1,7 @@
+{
+  "name": "railway-reservation-dsa",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Railway reservation system built on graph, tree and queue data structures",
+  "private": true
+}
