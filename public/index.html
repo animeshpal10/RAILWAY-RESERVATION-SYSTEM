@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Railway Reservation System (DSA)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12263a;--paper:#eef2f4;--line:#c5d0d8;--sig:#d6361f;--ok:#1d7a4d;--wait:#b7791f;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Barlow,system-ui,sans-serif}
+header{background:var(--ink);color:#fff;padding:28px 20px 22px;border-bottom:6px solid #f4c20d}
+header h1{margin:0;font:700 clamp(30px,6vw,52px)/1 "Barlow Condensed",sans-serif;letter-spacing:.5px}
+header p{margin:8px 0 0;max-width:62ch;color:#c9d6e0}
+main{max-width:1000px;margin:0 auto;padding:20px;display:grid;gap:20px}
+section{background:var(--card);border:1px solid var(--line);padding:18px 20px}
+h2{margin:0 0 12px;font:700 26px "Barlow Condensed",sans-serif}
+form,.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+label{display:grid;gap:3px;font-size:14px;font-weight:600}
+input,select,button{font:inherit;padding:8px 10px;border:1px solid var(--ink);background:#fff;color:var(--ink);min-height:40px}
+button{background:var(--ink);color:#fff;cursor:pointer;font-weight:600}
+button:hover{background:var(--sig);border-color:var(--sig)}
+:focus-visible{outline:3px solid #f4c20d;outline-offset:1px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+.scroll{overflow-x:auto}
+.CNF b{color:var(--ok)}.WL b{color:var(--wait)}.CAN{opacity:.5}.CAN b{color:var(--sig)}
+.route{padding:8px 0;border-bottom:1px dashed var(--line)}
+.msg{margin-top:10px;font-weight:600}.err{color:var(--sig)}
+small{color:#4a6072}
+</style>
+</head>
+<body>
+<header>
+  <h1>Railway Reservation System</h1>
+  <p>Graph for routes, AVL tree for tickets, Trie for station search, queues and heaps for the waitlist.</p>
+</header>
+<main>
+  <section>
+    <h2>Plan a journey</h2>
+    <form id="plan">
+      <label>From <input id="pf" list="st" value="New Delhi" required></label>
+      <label>To <input id="pt" list="st" value="Bhopal" required></label>
+      <label>Closed stations <input id="pb" placeholder="e.g. Agra, Jhansi"></label>
+      <button>Find routes</button>
+    </form>
+    <datalist id="st"></datalist>
+    <div id="routes"></div>
+  </section>
+
+  <section>
+    <h2>Book a ticket</h2>
+    <form id="book">
+      <label>Train <select id="bt"></select></label>
+      <label>From <select id="bf"></select></label>
+      <label>To <select id="bto"></select></label>
+      <label>Passenger <input id="bn" required maxlength="40"></label>
+      <label>Category <select id="bc"><option>General</option><option>Senior</option><option>Ladies</option><option>Tatkal</option></select></label>
+      <button>Book ticket</button>
+    </form>
+    <div id="bmsg" class="msg" role="status"></div>
+    <small>Each train has only 2 or 3 seats, so you can see the waitlist fill up quickly.</small>
+  </section>
+
+  <section>
+    <h2>Tickets</h2>
+    <div class="row"><label>Find by PNR <input id="q" inputmode="numeric" placeholder="1001"></label><button id="qb" type="button">Search</button><button id="reset" type="button">Clear all</button></div>
+    <div id="qmsg" class="msg" role="status"></div>
+    <div class="scroll"><table><thead><tr><th>PNR</th><th>Passenger</th><th>Journey</th><th>Fare</th><th>Status</th><th></th></tr></thead><tbody id="tbl"></tbody></table></div>
+    <small id="h"></small>
+  </section>
+
+  <section>
+    <h2>Seats and waitlist</h2>
+    <div id="wl"></div>
+  </section>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
